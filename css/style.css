@@ -237,7 +237,8 @@ td {
     }
     th,
     td {
-        padding-right: 30px;
+        /* padding-right: 30px; */
+        padding-right: 40px;
     }
     .nav {
         padding: 15px 20px;
