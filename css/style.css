@@ -235,6 +235,10 @@ td {
     .container {
         padding: 50px 20px;
     }
+    th,
+    td {
+        padding-right: 20px;
+    }
     .nav {
         padding: 15px 20px;
     }
