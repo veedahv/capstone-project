@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, shrink-to-fit=no initial-scale=1.0">
     <link rel="stylesheet" href="./css/style.css">
     <link rel="apple-touch-icon" sizes="180x180" href="./Images/favicon.io/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="./Images/favicon.io/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="./Images/favicon.io/favicon-16x16.png">
-<!-- <link rel="manifest" href="/site.webmanifest"> -->
+    <link rel="icon" type="image/png" sizes="32x32" href="./Images/favicon.io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./Images/favicon.io/favicon-16x16.png">
+    <!-- <link rel="manifest" href="/site.webmanifest"> -->
     <title>Document</title>
 </head>
 
@@ -32,70 +32,72 @@
             </ul>
             <button class="btn btn-primary nav-flex nav-btn">
                 <img src="./Images/cart.svg" class="cart-img" alt="cart image">
-                <span class="item-no">0</span>
+                <span class="item-qty-no">0</span>
             </button>
         </nav>
     </header>
     <main>
-            <!-- <input type="checkbox" name="checkbox" id="checkbox"> -->
+        <!-- <input type="checkbox" name="checkbox" id="checkbox"> -->
         <div class="cart">
             <div class="cart-container">
-            <div class="cart-body-container">
-                <div class="table-container">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>S/N</th>
-                                <th>Item</th>
-                                <th>Price</th>
-                                <th>Quantity</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="s-no">1</td>
-                                <td>ababy</td>
-                                <td>N <span class="price">200000</span></td>
-                                <td class="flex">
-                                    <button class="btn-qty btn-primary">-</button>
-                                    <span class="qty-no">4</span>
-                                    <button class="btn-qty btn-primary">+</button>
-                                </td>
-                                <td><button class="btn btn-secondary-light">Remove</button></td>
-                            </tr>
-                            <tr>
-                                <td class="s-no">1</td>
-                                <td>ababy</td>
-                                <td>N <span class="price">200000</span></td>
-                                <td class="flex">
-                                    <button class="btn-qty btn-primary">-</button>
-                                    <span class="qty-no">4</span>
-                                    <button class="btn-qty btn-primary">+</button>
-                                </td>
-                                <td><button class="btn-secondary-light btn">Remove</button></td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div class="cart-body-container">
+                    <div class="table-container">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>S/N</th>
+                                    <th>Item</th>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- <tr>
+                                    <td class="s-no">1</td>
+                                    <td>ababy</td>
+                                    <td>&#8358;<span class="price">200000</span></td>
+                                    <td class="cart-flex">
+                                        <button class="btn-qty sub-btn btn-primary">-</button>
+                                        <span class="qty-no">4</span>
+                                        <button class="btn-qty add-btn btn-primary">+</button>
+                                    </td>
+                                    <td><button class="btn remove-btn btn-secondary-light">Remove</button></td>
+                                </tr>
+                                <tr>
+                                    <td class="s-no">1</td>
+                                    <td>ababy</td>
+                                    <td>&#8358;<span class="price">200000</span></td>
+                                    <td class="cart-flex">
+                                        <button class="btn-qty sub-btn btn-primary">-</button>
+                                        <span class="qty-no">4</span>
+                                        <button class="btn-qty add-btn btn-primary">+</button>
+                                    </td>
+                                    <td><button class="btn-secondary-light remove-btn btn">Remove</button></td>
+                                </tr> -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="form-boy">
+                        <form action="" class="form">
+                            <input type="text" name="name" class="form-input" id="name" placeholder="Your Name">
+                            <input type="email" name="email" class="form-input" id="email" placeholder="Your Email">
+                            <input type="number" name="number" class="form-input" id="number"
+                                placeholder="Your Phone Number">
+                        </form>
+                    </div>
+                    <div class="total-amount-container">
+                        <h1>
+                            Total Amount to be Paid
+                        </h1>
+                        <p class="price-container">
+                            &#8358;<span class="total-price">800000</span>
+                        </p>
+                    </div>
+                    <div class="cart-container">
+                        <button class="btn continue-btn btn-secondary">Continue Shopping</button>
+                        <button class="btn btn-primary">Checkout</button>
+                    </div>
                 </div>
-                <div class="form-boy">
-                    <form action="" class="form">
-                        <input type="text" name="name" class="form-input" id="name" placeholder="Your Name">
-                        <input type="email" name="email" class="form-input" id="email" placeholder="Your Email">
-                        <input type="number" name="number" class="form-input" id="number"
-                            placeholder="Your Phone Number">
-                    </form>
-                </div>
-                <div class="total-amount-container">
-                    <h1>
-                        Total Amount to be Paid
-                    </h1>
-                    <span class="total-price">N800000</span>
-                </div>
-                <div class="cart-container">
-                    <button class="btn btn-secondary">Continue Shopping</button>
-                    <button class="btn btn-primary">Checkout</button>
-            </div>
-            </div>
             </div>
         </div>
         <section class="intro" id="intro">
@@ -133,42 +135,78 @@
                 <div class="grid">
                     <div class="grid-box">
                         <div class="card">
-                            <img src="./Images/product1.png" alt="SAMSUNG TV" class="product-img">
+                            <div class="product-box flex">
+                                <img src="./Images/product1.png" alt="SAMSUNG TV" class="product-img">
+                                <div class="price-box flex">
+                                    <p class="price-title"><u>Price</u></p>
+                                    <p class="price-tag">&#8358;<span class="price-value">200000</span></p>
+                                </div>
+                            </div>
                             <h3 class="product-name">SAMSUNG TV</h3>
                             <button class="btn btn-primary btn-cart">ADD TO CART</button>
                         </div>
                     </div>
                     <div class="grid-box">
                         <div class="card">
-                            <img src="./Images/product2.png" alt="PIXEL 4a" class="product-img">
+                            <div class="product-box flex">
+                                <img src="./Images/product2.png" alt="PIXEL 4a" class="product-img">
+                                <div class="price-box flex">
+                                    <p class="price-title"><u>Price</u></p>
+                                    <p class="price-tag">&#8358;<span class="price-value">200000</span></p>
+                                </div>
+                            </div>
                             <h3 class="product-name">PIXEL 4a</h3>
                             <button class="btn btn-primary btn-cart">ADD TO CART</button>
                         </div>
                     </div>
                     <div class="grid-box">
                         <div class="card">
-                            <img src="./Images/product3.png" alt="PS 5" class="product-img">
+                            <div class="product-box flex">
+                                <img src="./Images/product3.png" alt="PS 5" class="product-img">
+                                <div class="price-box flex">
+                                    <p class="price-title"><u>Price</u></p>
+                                    <p class="price-tag">&#8358;<span class="price-value">200000</span></p>
+                                </div>
+                            </div>
                             <h3 class="product-name">PS 5</h3>
                             <button class="btn btn-primary btn-cart">ADD TO CART</button>
                         </div>
                     </div>
                     <div class="grid-box">
                         <div class="card">
-                            <img src="./Images/product4.png" alt="MACBOOK AIR " class="product-img">
+                            <div class="product-box flex">
+                                <img src="./Images/product4.png" alt="MACBOOK AIR " class="product-img">
+                                <div class="price-box flex">
+                                    <p class="price-title"><u>Price</u></p>
+                                    <p class="price-tag">&#8358;<span class="price-value">200000</span></p>
+                                </div>
+                            </div>
                             <h3 class="product-name">MACBOOK AIR </h3>
                             <button class="btn btn-primary btn-cart">ADD TO CART</button>
                         </div>
                     </div>
                     <div class="grid-box">
                         <div class="card">
-                            <img src="./Images/product5.png" alt="APPLE WATCH" class="product-img">
+                            <div class="product-box flex">
+                                <img src="./Images/product5.png" alt="APPLE WATCH" class="product-img">
+                                <div class="price-box flex">
+                                    <p class="price-title"><u>Price</u></p>
+                                    <p class="price-tag">&#8358;<span class="price-value">200000</span></p>
+                                </div>
+                            </div>
                             <h3 class="product-name">APPLE WATCH</h3>
                             <button class="btn btn-primary btn-cart">ADD TO CART</button>
                         </div>
                     </div>
                     <div class="grid-box">
                         <div class="card">
-                            <img src="./Images/product6.png" alt="AIR PODS" class="product-img">
+                            <div class="product-box flex">
+                                <img src="./Images/product6.png" alt="AIR PODS" class="product-img">
+                                <div class="price-box flex">
+                                    <p class="price-title"><u>Price</u></p>
+                                    <p class="price-tag">&#8358;<span class="price-value">200000</span></p>
+                                </div>
+                            </div>
                             <h3 class="product-name">AIR PODS</h3>
                             <button class="btn btn-primary btn-cart">ADD TO CART</button>
                         </div>
