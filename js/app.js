@@ -3,8 +3,13 @@ const cartContainer = document.querySelector('.cart'),
     cartBox = document.querySelector('.cart-container'),
     gridBox = document.querySelector('.grid'),
     tableBody = document.querySelector('tbody'),
+    totalPrice = document.querySelector('.total-price'),
     cartShowBtn = document.querySelector('.nav-btn'),
+    payBtn = document.querySelector('.pay-btn'),
     continueBtn = document.querySelector('.continue-btn'),
+    name = document.querySelector('#name'),
+    email = document.querySelector('#email'),
+    phoneNumber = document.querySelector('#phone-number'),
     addBtnss = document.querySelectorAll('.add-btn'),
     subBtnss = document.querySelectorAll('.sub-btn'),
     removeBtnss = document.querySelectorAll('.remove-btn'),
@@ -45,6 +50,7 @@ const checkSn = () => {
                 i++;
             });
     // let itemQtyNo = tableBody.childElementCount;
+    // let itemQtyNo = tableBody.nextElementSIbling;
     // console.log(itemQtyNo);
     // cartQty.textContent = itemQtyNo;
 }
@@ -177,19 +183,30 @@ const cartClose = (e) => {
 // Show error message
 const showError = (input, message) => {
     input.className = 'form-control error';
-    const formGroup = input.parentElement.closest('.form-group');
-    formGroup.querySelector('small').innerText = message;
+    // const formGroup = input.parentElement.closest('.form-group');
+    const errorTxt = input.nextElementSibling;
+    errorTxt.innerText = message;
+    // formGroup.querySelector('small').innerText = message;
 };
 
-const validateEmail = (emailValid) => {
+const validateEmail = () => {
     const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    let emailValidTest = re.test(String(emailValid).toLowerCase());
+    let emailValidTest = re.test(String(email.value).toLowerCase());
     if (emailValidTest === true) {
         email.className = 'form-control success';
     } else {
         showError(email, 'Email invalid');
     }
 }
+// const validateEmail = (emailValid) => {
+//     const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+//     let emailValidTest = re.test(String(email.value).toLowerCase());
+//     if (emailValidTest === true) {
+//         email.className = 'form-control success';
+//     } else {
+//         showError(email, 'Email invalid');
+//     }
+// }
 
 function requestMessage() {
     console.log('please work');
@@ -272,6 +289,14 @@ continueBtn.addEventListener('click', () => {
     cartContainer.style.display = 'none';
     console.log('working mor--');
 });
+payBtn.addEventListener('click', () => {
+    // cartContainer.style.display = 'none';
+    console.log(email.value);
+    console.log(email);
+    console.log(email.nextElementSibling);
+    // console.log(email.nextSibling);
+    payWithPaystack();
+});
 document.addEventListener('click', (e) => {
     let isInside = cartBox.contains(e.target);
     let isBtnInside = cartShowBtn.contains(e.target);
@@ -288,3 +313,23 @@ document.addEventListener('click', (e) => {
 
 checkCartQty();
 
+
+function payWithPaystack() {
+    // e.preventDefault();
+    let totalPriceNo = parseInt(totalPrice.innerText);
+    let handler = PaystackPop.setup({
+      key: 'pk_test_08d2d1a95f28e6534dd378bfb0daac9b0d98b78e', // Replace with your public key
+      email: email.value,
+      amount: totalPriceNo * 100,
+      ref: ''+Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
+      // label: "Optional string that replaces customer email"
+      onClose: function(){
+        alert('Window closed.');
+      },
+      callback: function(response){
+        let message = 'Payment complete! Reference: ' + response.reference;
+        alert(message);
+      }
+    });
+    handler.openIframe();
+  }
