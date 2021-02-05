@@ -10,6 +10,7 @@ const cartContainer = document.querySelector('.cart'),
     name = document.querySelector('#name'),
     email = document.querySelector('#email'),
     phoneNumber = document.querySelector('#phone-number'),
+    formInputs = document.querySelectorAll('.form-input'),
     addBtnss = document.querySelectorAll('.add-btn'),
     subBtnss = document.querySelectorAll('.sub-btn'),
     removeBtnss = document.querySelectorAll('.remove-btn'),
@@ -38,17 +39,17 @@ const checkSn = () => {
 
     // sN = tableBody.childElementCount;
     // sN++;
-        sNos = tableBody.querySelectorAll('.s-no');
-            sNos.forEach(sNo => {
-                console.log(sNo.innerText);
-                console.log(i);
-                let sNoIndex = parseInt(sNo.innerText);
-                if (sNoIndex !== i) {
-                    console.log('nahh');
-                    sNo.innerText = sNoIndex - 1;
-                }
-                i++;
-            });
+    sNos = tableBody.querySelectorAll('.s-no');
+    sNos.forEach(sNo => {
+        console.log(sNo.innerText);
+        console.log(i);
+        let sNoIndex = parseInt(sNo.innerText);
+        if (sNoIndex !== i) {
+            console.log('nahh');
+            sNo.innerText = sNoIndex - 1;
+        }
+        i++;
+    });
     // let itemQtyNo = tableBody.childElementCount;
     // let itemQtyNo = tableBody.nextElementSIbling;
     // console.log(itemQtyNo);
@@ -58,15 +59,15 @@ const removeRow = (btn) => {
     let itemRow = btn.closest('tr');
     itemRow.remove();
     checkCartQty();
-                checkSn();
+    checkSn();
 }
 const checkCartItem = (btn) => {
     let cartItemBody = tableBody.children;
     let shopItemBody = gridBox.children;
     let shopProductName = btn.closest('.card').querySelector('.product-name').innerText;
     for (let x = 0; x < cartItemBody.length; x++) {
-        let cartProductName  = cartItemBody[x].querySelector('.cart-product-name').innerText;
-        let cartProductBtn  = cartItemBody[x].querySelector('.remove-btn');
+        let cartProductName = cartItemBody[x].querySelector('.cart-product-name').innerText;
+        let cartProductBtn = cartItemBody[x].querySelector('.remove-btn');
         // console.log(cartItemBody[x]);
         // console.log(cartItemBody[x].querySelector('.cart-product-name'));
         console.log(cartProductName);
@@ -74,9 +75,9 @@ const checkCartItem = (btn) => {
         if (shopProductName === cartProductName) {
             // cartItemBody[x].remove();
             removeRow(cartProductBtn);
-        console.log('ayahh');
-        removeToCart(btn);
-    }
+            console.log('ayahh');
+            removeToCart(btn);
+        }
     }
 }
 const checkShopItem = (btn) => {
@@ -84,8 +85,8 @@ const checkShopItem = (btn) => {
     let shopItemBody = gridBox.children;
     let cartProductName = btn.closest('tr').querySelector('.cart-product-name').innerText;
     for (let x = 0; x < shopItemBody.length; x++) {
-        let shopProductName  = shopItemBody[x].querySelector('.product-name').innerText;
-        let shopProductBtn  = shopItemBody[x].querySelector('.btn-cart');
+        let shopProductName = shopItemBody[x].querySelector('.product-name').innerText;
+        let shopProductBtn = shopItemBody[x].querySelector('.btn-cart');
         console.log(shopProductName);
         console.log(cartProductName);
         if (shopProductName === cartProductName) {
@@ -138,7 +139,7 @@ const newItemRow = (productName, productPrice) => {
     let addBtns = tableBody.querySelectorAll('.add-btn'),
         subBtns = tableBody.querySelectorAll('.sub-btn'),
         removeBtns = tableBody.querySelectorAll('.remove-btn');
-        // sNos = tableBody.querySelectorAll('.s-no');
+    // sNos = tableBody.querySelectorAll('.s-no');
     addBtns.forEach(btn => {
         // btn.addEventListener('click', addToCart(btn));
         btn.addEventListener('click', () => {
@@ -156,7 +157,7 @@ const newItemRow = (productName, productPrice) => {
             removeRow(btn);
             console.log('tipp');
             // sNos.forEach(sNo => {
-                checkShopItem(btn);
+            checkShopItem(btn);
             // });
         });
     });
@@ -182,7 +183,8 @@ const cartClose = (e) => {
 
 // Show error message
 const showError = (input, message) => {
-    input.className = 'form-control error';
+    // input.className = 'form-input error';
+    input.classList.add('error');
     // const formGroup = input.parentElement.closest('.form-group');
     const errorTxt = input.nextElementSibling;
     errorTxt.innerText = message;
@@ -193,7 +195,7 @@ const validateEmail = () => {
     const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     let emailValidTest = re.test(String(email.value).toLowerCase());
     if (emailValidTest === true) {
-        email.className = 'form-control success';
+        email.classList.remove('error');
     } else {
         showError(email, 'Email invalid');
     }
@@ -274,7 +276,7 @@ cartBtns.forEach(btn => {
         } else {
             // btn.classList.replace('btn-secondary', 'btn-primary');
             // btn.textContent = 'ADD TO CART';
-                checkCartItem(btn);
+            checkCartItem(btn);
             // console.log('nnayhh');
         }
         // console.log(btn.closest('.card'));
@@ -291,11 +293,28 @@ continueBtn.addEventListener('click', () => {
 });
 payBtn.addEventListener('click', () => {
     // cartContainer.style.display = 'none';
+    formInputs.forEach(formInput => {
+        if (formInput.value === '') {
+            showError(formInput, `${formInput.title} cannot be blank`);
+        } else {
+            formInput.classList.remove('error');
+        }
+    });
+    // if (name.value === '') {
+    //     showError(name, 'Name cannot be blank');
+    // } else {
+    //     name.classList.remove('error');
+    // }
+    // if (email.value === '') {
+    //     showError(email, 'Email cannot be blank');
+    // } else {
+    //     validateEmail(email.value);
+    // }
     console.log(email.value);
-    console.log(email);
-    console.log(email.nextElementSibling);
+    console.log(email.title);
+    // console.log(email.nextElementSibling);
     // console.log(email.nextSibling);
-    payWithPaystack();
+    // payWithPaystack();
 });
 document.addEventListener('click', (e) => {
     let isInside = cartBox.contains(e.target);
@@ -318,18 +337,18 @@ function payWithPaystack() {
     // e.preventDefault();
     let totalPriceNo = parseInt(totalPrice.innerText);
     let handler = PaystackPop.setup({
-      key: 'pk_test_08d2d1a95f28e6534dd378bfb0daac9b0d98b78e', // Replace with your public key
-      email: email.value,
-      amount: totalPriceNo * 100,
-      ref: ''+Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
-      // label: "Optional string that replaces customer email"
-      onClose: function(){
-        alert('Window closed.');
-      },
-      callback: function(response){
-        let message = 'Payment complete! Reference: ' + response.reference;
-        alert(message);
-      }
+        key: 'pk_test_08d2d1a95f28e6534dd378bfb0daac9b0d98b78e', // Replace with your public key
+        email: email.value,
+        amount: totalPriceNo * 100,
+        ref: '' + Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
+        // label: "Optional string that replaces customer email"
+        onClose: function () {
+            alert('Window closed.');
+        },
+        callback: function (response) {
+            let message = 'Payment complete! Reference: ' + response.reference;
+            alert(message);
+        }
     });
     handler.openIframe();
-  }
+}

@@ -7,6 +7,7 @@
     /* --primary: #f7844; */
     --secondary: #ffcd9e;
     --secondary-light: #ffe9d6;
+    --red: #ff0000;
     --dark: #000000;
     --white: #ffffff;
 }
@@ -153,6 +154,18 @@ td {
     margin-bottom: 15px;
     padding: 10px 5px;
     width: 100%;
+}
+.form-input + small {
+    display: none;
+}
+.error {
+    margin-bottom: 0px;
+    border: 1px solid var(--red);
+}
+.error ~ small {
+    display: block;
+    padding: 5px 0px;
+    color: var(--red);
 }
 .total-amount-container {
     text-align: center;
