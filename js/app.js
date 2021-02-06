@@ -16,7 +16,8 @@ const cartContainer = document.querySelector('.cart'),
     removeBtnss = document.querySelectorAll('.remove-btn'),
     cartBtns = document.querySelectorAll('.btn-cart');
 
-let sN;
+let sN,
+ t = 0;
 
 const checkCartQty = () => {
     let itemQtyNo = tableBody.childElementCount;
@@ -55,8 +56,15 @@ const checkSn = () => {
     // console.log(itemQtyNo);
     // cartQty.textContent = itemQtyNo;
 }
-const removeRow = (btn) => {
+const removeRow = (btn, productPrice) => {
     let itemRow = btn.closest('tr');
+    let qtyOfItem = btn.closest('tr').querySelector('.qty-no');
+    let qtyOfItemNo = qtyOfItem.textContent;
+    let qtyOfItemPrice = parseInt(productPrice) * qtyOfItemNo;
+    t -= qtyOfItemPrice;
+    // qtyOfItemPrice = parseInt(productPrice) * qtyOfItemNo;
+    // t += qtyOfItemPrice;
+    totalPrice.innerHTML = t;
     itemRow.remove();
     checkCartQty();
     checkSn();
@@ -67,6 +75,7 @@ const checkCartItem = (btn) => {
     let shopProductName = btn.closest('.card').querySelector('.product-name').innerText;
     for (let x = 0; x < cartItemBody.length; x++) {
         let cartProductName = cartItemBody[x].querySelector('.cart-product-name').innerText;
+        let cartProductPrice = cartItemBody[x].querySelector('.price').innerText;
         let cartProductBtn = cartItemBody[x].querySelector('.remove-btn');
         // console.log(cartItemBody[x]);
         // console.log(cartItemBody[x].querySelector('.cart-product-name'));
@@ -74,7 +83,7 @@ const checkCartItem = (btn) => {
         console.log(shopProductName);
         if (shopProductName === cartProductName) {
             // cartItemBody[x].remove();
-            removeRow(cartProductBtn);
+            removeRow(cartProductBtn, cartProductPrice);
             console.log('ayahh');
             removeToCart(btn);
         }
@@ -84,40 +93,115 @@ const checkShopItem = (btn) => {
     let cartItemBody = tableBody.children;
     let shopItemBody = gridBox.children;
     let cartProductName = btn.closest('tr').querySelector('.cart-product-name').innerText;
+    let cartProductPrice = btn.closest('tr').querySelector('.price').innerText;
     for (let x = 0; x < shopItemBody.length; x++) {
         let shopProductName = shopItemBody[x].querySelector('.product-name').innerText;
         let shopProductBtn = shopItemBody[x].querySelector('.btn-cart');
         console.log(shopProductName);
         console.log(cartProductName);
         if (shopProductName === cartProductName) {
+            removeRow(btn, cartProductPrice);
             console.log('ahh');
             removeToCart(shopProductBtn);
         }
     }
 }
-const increaseQty = (btn) => {
-    let qtyOfItem = btn.closest('tr').querySelector('.qty-no');
-    let decreaseBtn = btn.closest('tr').querySelector('.sub-btn');
-    let qtyOfItemNo = qtyOfItem.textContent;
-    qtyOfItemNo++;
-    qtyOfItem.textContent = qtyOfItemNo;
-    console.log(qtyOfItemNo);
-    console.log('ohoii');
-    (qtyOfItemNo >= 10) ? btn.disabled = true : btn.disabled = false;
-    (qtyOfItemNo <= 10) ? decreaseBtn.disabled = false : decreaseBtn.disabled = true;
+const calcTotalPrice = (productPrice, qtyOfItemPrice) => {
+    t -= totalPrice;
+    t += qtyOfItemPrice;
+    totalPrice.innerHTML = t;
 }
-const decreaseQty = (btn) => {
+const getQty = (btn, productPrice, op, minMaxValue) => {
     let qtyOfItem = btn.closest('tr').querySelector('.qty-no');
-    let increaseBtn = btn.closest('tr').querySelector('.add-btn');
+    let opSiblingBtn = btn.closest('tr').querySelector(`.${op}-btn`);
     let qtyOfItemNo = qtyOfItem.textContent;
-    qtyOfItemNo--;
+    let qtyOfItemPrice = parseInt(productPrice) * qtyOfItemNo;
+    t -= qtyOfItemPrice;
+    // (op === 'sub') ? console.log(minMaxValue + 1) : console.log(minMaxValue - 1);
+    (op === 'sub') ? qtyOfItemNo++ : qtyOfItemNo--;
+    // qtyOfItemNo++;
+    qtyOfItemPrice = parseInt(productPrice) * qtyOfItemNo;
+    t += qtyOfItemPrice;
+    totalPrice.innerHTML = t;
+    // let op = +
+    // calcTotalPrice(productPrice, qtyOfItemNo);
+    // qtyOfItemPrice = parseInt(productPrice) * qtyOfItemNo;
+    //         t += qtyOfItemPrice;
+    //         sumItemPrice.innerHTML = t;
     qtyOfItem.textContent = qtyOfItemNo;
     console.log(qtyOfItemNo);
+    console.log(opSiblingBtn);
     console.log('ohoii');
-    (qtyOfItemNo <= 1) ? btn.disabled = true : btn.disabled = false;
-    (qtyOfItemNo >= 1) ? increaseBtn.disabled = false : increaseBtn.disabled = true;
+    if (minMaxValue === 10) {        
+        (qtyOfItemNo >= minMaxValue) ? btn.disabled = true : btn.disabled = false;
+        (qtyOfItemNo <= minMaxValue) ? opSiblingBtn.disabled = false : opSiblingBtn.disabled = true;
+    } else {        
+        (qtyOfItemNo <= minMaxValue) ? btn.disabled = true : btn.disabled = false;
+        (qtyOfItemNo >= minMaxValue) ? opSiblingBtn.disabled = false : opSiblingBtn.disabled = true;
+    }
+    // (qtyOfItemNo <= 10) ? decreaseBtn.disabled = false : decreaseBtn.disabled = true;
+}
+// const increaseQty = (btn, productPrice) => {
+//     getQty(btn, productPrice, 'sub', 10);
+//     // let qtyOfItem = btn.closest('tr').querySelector('.qty-no');
+//     // let decreaseBtn = btn.closest('tr').querySelector('.sub-btn');
+//     // let qtyOfItemNo = qtyOfItem.textContent;
+//     // let qtyOfItemPrice = parseInt(productPrice) * qtyOfItemNo;
+//     // t -= qtyOfItemPrice;
+//     // qtyOfItemNo++;
+//     // qtyOfItemPrice = parseInt(productPrice) * qtyOfItemNo;
+//     // t += qtyOfItemPrice;
+//     // totalPrice.innerHTML = t;
+//     // // let op = +
+//     // // calcTotalPrice(productPrice, qtyOfItemNo);
+//     // // qtyOfItemPrice = parseInt(productPrice) * qtyOfItemNo;
+//     // //         t += qtyOfItemPrice;
+//     // //         sumItemPrice.innerHTML = t;
+//     // qtyOfItem.textContent = qtyOfItemNo;
+//     // console.log(qtyOfItemNo);
+//     // console.log('ohoii');
+//     // (qtyOfItemNo >= 10) ? btn.disabled = true : btn.disabled = false;
+//     // (qtyOfItemNo <= 10) ? decreaseBtn.disabled = false : decreaseBtn.disabled = true;
+// }
+// const decreaseQty = (btn, productPrice) => {
+    // let qtyOfItem = btn.closest('tr').querySelector('.qty-no');
+    // let increaseBtn = btn.closest('tr').querySelector('.add-btn');
+    // let qtyOfItemNo = qtyOfItem.textContent;
+    // let qtyOfItemPrice = parseInt(productPrice) * qtyOfItemNo;
+    // t -= qtyOfItemPrice;
+    // qtyOfItemNo--;
+    // qtyOfItemPrice = parseInt(productPrice) * qtyOfItemNo;
+    // t += qtyOfItemPrice;
+    // totalPrice.innerHTML = t;
+    // qtyOfItem.textContent = qtyOfItemNo;
+    // console.log(qtyOfItemNo);
+    // console.log('ohoii');
+    // (qtyOfItemNo <= 1) ? btn.disabled = true : btn.disabled = false;
+    // (qtyOfItemNo >= 1) ? increaseBtn.disabled = false : increaseBtn.disabled = true;
 
-}
+// }
+// let totalPrice = parseInt(itemPrice) * itemSpan;
+// t = t + totalPrice;
+// sumItemPrice.innerHTML = t;
+// const plusBtns = cartRowDiv.querySelectorAll('.plus-btn');
+// const subtractBtns = cartRowDiv.querySelectorAll('.subtract-btn');
+// plusBtns.forEach(function addQty(plusBtn) {
+//     plusBtn.addEventListener('click', function (event) {
+//         t = t - totalPrice;
+//         itemSpan = itemSpan + 1;
+//         totalPrice = parseInt(itemPrice) * itemSpan;
+//         t = t + totalPrice;
+//         sumItemPrice.innerHTML = t;
+//         // sumTotalPrice.innerHTML = t + 2000;
+//     })
+// })
+// subtractBtns.forEach(function addQty(subtractBtn) {
+//     subtractBtn.addEventListener('click', function (event) {
+//             t = t - totalPrice;
+//             itemSpan = itemSpan - 1;
+//             totalPrice = parseInt(itemPrice) * itemSpan;
+//     })
+// })
 const newItemRow = (productName, productPrice) => {
     sN = tableBody.childElementCount;
     sN++;
@@ -139,28 +223,34 @@ const newItemRow = (productName, productPrice) => {
     let addBtns = tableBody.querySelectorAll('.add-btn'),
         subBtns = tableBody.querySelectorAll('.sub-btn'),
         removeBtns = tableBody.querySelectorAll('.remove-btn');
+        // let qtyOfItemPrice = parseInt(productPrice) * parseInt(qtyOfItem.textContent);
     // sNos = tableBody.querySelectorAll('.s-no');
     addBtns.forEach(btn => {
         // btn.addEventListener('click', addToCart(btn));
         btn.addEventListener('click', () => {
-            increaseQty(btn);
+            // increaseQty(btn, productPrice);
+            getQty(btn, productPrice, 'sub', 10);
+            // increaseQty(btn, productPrice, qtyOfItemPrice);
         });
     });
     subBtns.forEach(btn => {
         // btn.addEventListener('click', addToCart(btn));
         btn.addEventListener('click', () => {
-            decreaseQty(btn);
+            // decreaseQty(btn, productPrice);
+            getQty(btn, productPrice, 'add', 1);
         });
     });
     removeBtns.forEach(btn => {
         btn.addEventListener('click', () => {
-            removeRow(btn);
+            // removeRow(btn);
             console.log('tipp');
             // sNos.forEach(sNo => {
             checkShopItem(btn);
             // });
         });
     });
+            t += parseInt(productPrice);
+            totalPrice.innerText = t;
     checkCartQty();
 }
 const cartShow = () => {
@@ -169,14 +259,18 @@ const cartShow = () => {
     console.log('working');
 }
 
-const cartClose = (e) => {
-    let isInside = cartBox.contains(e.target);
-    let isBtnInside = cartBtn.contains(e.target);
-    if (!isInside && !isBtnInside) {
+const cartClose = () => {
         cartContainer.style.display = 'none';
         console.log('working--');
+}
+const cartBlurClose = (e) => {
+    let isInside = cartBox.contains(e.target);
+    let isBtnInside = cartShowBtn.contains(e.target);
+    if (!isInside && !isBtnInside) {
+        cartContainer.style.display = 'none';
+        // console.log('working--');
     }
-    console.log('!!working');
+    // console.log('!!working');
     // cartBox.classList.add('cart-container-show')
     // cartBox.classList.replace('cart-container-show')
 }
@@ -293,37 +387,42 @@ continueBtn.addEventListener('click', () => {
 });
 payBtn.addEventListener('click', () => {
     // cartContainer.style.display = 'none';
-    formInputs.forEach(formInput => {
-        if (formInput.value === '') {
-            showError(formInput, `${formInput.title} cannot be blank`);
-        } else {
-            formInput.classList.remove('error');
-        }
-    });
-    // if (name.value === '') {
-    //     showError(name, 'Name cannot be blank');
-    // } else {
-    //     name.classList.remove('error');
-    // }
-    // if (email.value === '') {
-    //     showError(email, 'Email cannot be blank');
-    // } else {
-    //     validateEmail(email.value);
-    // }
-    console.log(email.value);
-    console.log(email.title);
-    // console.log(email.nextElementSibling);
-    // console.log(email.nextSibling);
-    // payWithPaystack();
+    if (tableBody.childElementCount === 0) {
+        console.log('no item');
+    } else {        
+        formInputs.forEach(formInput => {
+            if (formInput.value === '') {
+                showError(formInput, `${formInput.title} cannot be blank`);
+            } else {
+                formInput.classList.remove('error');
+            }
+        });
+        // if (name.value === '') {
+        //     showError(name, 'Name cannot be blank');
+        // } else {
+        //     name.classList.remove('error');
+        // }
+        // if (email.value === '') {
+        //     showError(email, 'Email cannot be blank');
+        // } else {
+        //     validateEmail(email.value);
+        // }
+        console.log(email.value);
+        console.log(email.title);
+        // console.log(email.nextElementSibling);
+        // console.log(email.nextSibling);
+        payWithPaystack();
+    }
 });
 document.addEventListener('click', (e) => {
-    let isInside = cartBox.contains(e.target);
-    let isBtnInside = cartShowBtn.contains(e.target);
-    if (!isInside && !isBtnInside) {
-        cartContainer.style.display = 'none';
-        // console.log('working--');
-    }
-    // console.log('!!working');
+    cartBlurClose(e)
+    // let isInside = cartBox.contains(e.target);
+    // let isBtnInside = cartShowBtn.contains(e.target);
+    // if (!isInside && !isBtnInside) {
+    //     cartContainer.style.display = 'none';
+    //     // console.log('working--');
+    // }
+    // // console.log('!!working');
 });
 
 // cartBtn.addEventListener('click', cartShow)

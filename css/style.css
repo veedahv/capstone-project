@@ -128,6 +128,7 @@ ul {
     max-width: 700px;
     padding: 20px 10px;
     height: fit-content;
+    overflow: hidden;
     /* display: none; */
 }
 /* .cart-container-show {
@@ -135,7 +136,8 @@ ul {
 } */
 .table-container {
     width: 100%;
-    /* overflow-x: scroll; */
+    overflow-x: scroll;
+    scrollbar-color: var(--white);
 }
 .table {
     text-align: left;
