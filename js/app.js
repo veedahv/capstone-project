@@ -397,7 +397,18 @@ payBtn.addEventListener('click', () => {
                 formInput.classList.remove('error');
             }
         });
-        // if (name.value === '') {
+        // if 
+    let checkName = !name.classList.contains('error');
+    let checkEmail = !email.classList.contains('error');
+    let checkNumber = !phoneNumber.classList.contains('error');
+    console.log(checkName);
+    console.log(checkEmail);
+    if (checkName && checkEmail && checkNumber) {
+        console.log('woohoo');
+        payWithPaystack();
+    }
+    // let checkEmail = email.classList.contains('success');
+    // (name.value === '') {
         //     showError(name, 'Name cannot be blank');
         // } else {
         //     name.classList.remove('error');
@@ -411,7 +422,6 @@ payBtn.addEventListener('click', () => {
         console.log(email.title);
         // console.log(email.nextElementSibling);
         // console.log(email.nextSibling);
-        payWithPaystack();
     }
 });
 document.addEventListener('click', (e) => {

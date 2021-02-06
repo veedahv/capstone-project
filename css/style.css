@@ -157,14 +157,14 @@ td {
     padding: 10px 5px;
     width: 100%;
 }
-.form-input + small {
+.error-txt {
     display: none;
 }
 .error {
     margin-bottom: 0px;
     border: 1px solid var(--red);
 }
-.error ~ small {
+.error + small {
     display: block;
     padding: 5px 0px;
     color: var(--red);
@@ -294,6 +294,9 @@ td {
     td {
         /* padding-right: 30px; */
         padding-right: 40px;
+    }
+    .total-amount-txt {
+        font-size: 25px;
     }
     .nav {
         padding: 15px 20px;
