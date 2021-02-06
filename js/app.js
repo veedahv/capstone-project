@@ -2,7 +2,7 @@ const cartContainer = document.querySelector('.cart'),
     cartQty = document.querySelector('.item-qty-no'),
     cartBox = document.querySelector('.cart-container'),
     gridBox = document.querySelector('.grid'),
-    tableBody = document.querySelector('tbody'),
+    tableBody = document.querySelector('.cart-tbody'),
     totalPrice = document.querySelector('.total-price'),
     cartShowBtn = document.querySelector('.nav-btn'),
     payBtn = document.querySelector('.pay-btn'),
@@ -417,7 +417,7 @@ payBtn.addEventListener('click', () => {
     console.log(checkEmail);
     if (checkName && checkEmail && checkNumber) {
         console.log('woohoo');
-        payWithPaystack();
+        // payWithPaystack();
     }
     // let checkEmail = email.classList.contains('success');
     // (name.value === '') {
