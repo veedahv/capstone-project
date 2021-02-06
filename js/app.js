@@ -294,6 +294,16 @@ const validateEmail = () => {
         showError(email, 'Email invalid');
     }
 }
+
+const validatePhoneNumber = () => {
+    const re = /^[0]\d{10}$/;
+    let phoneNumberValidTest = re.test(String(phoneNumber.value));
+    if (phoneNumberValidTest === true) {
+        phoneNumber.classList.remove('error');
+    } else {
+        showError(phoneNumber, 'Phone number invalid');
+    }
+}
 // const validateEmail = (emailValid) => {
 //     const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 //     let emailValidTest = re.test(String(email.value).toLowerCase());
@@ -397,6 +407,8 @@ payBtn.addEventListener('click', () => {
                 formInput.classList.remove('error');
             }
         });
+        validatePhoneNumber();
+        validateEmail();
         // if 
     let checkName = !name.classList.contains('error');
     let checkEmail = !email.classList.contains('error');
