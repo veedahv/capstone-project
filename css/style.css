@@ -143,6 +143,9 @@ ul {
 .success-msg {
     font-size: 25px;
 }
+.customer-name {
+    color: var(--primary-light);
+}
 .success-img {
     width: 250px;
     margin-top: 10px;

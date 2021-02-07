@@ -1,12 +1,17 @@
 const cartContainer = document.querySelector('.cart'),
-    cartQty = document.querySelector('.item-qty-no'),
-    cartBox = document.querySelector('.cart-container'),
+cartBox = document.querySelector('.cart-container'),
+cartQty = document.querySelector('.item-qty-no'),
+successContainer = document.querySelector('.success'),
+ successBox = document.querySelector('.success-container'),
     gridBox = document.querySelector('.grid'),
     tableBody = document.querySelector('.cart-tbody'),
+    summaryTableBody = document.querySelector('.summary-tbody'),
     totalPrice = document.querySelector('.total-price'),
     cartShowBtn = document.querySelector('.nav-btn'),
     payBtn = document.querySelector('.pay-btn'),
+    okBtn = document.querySelector('.ok-btn'),
     continueBtn = document.querySelector('.continue-btn'),
+    customerName = document.querySelector('.customer-name'),
     name = document.querySelector('#name'),
     email = document.querySelector('#email'),
     phoneNumber = document.querySelector('#phone-number'),
@@ -17,7 +22,8 @@ const cartContainer = document.querySelector('.cart'),
     cartBtns = document.querySelectorAll('.btn-cart');
 
 let sN,
- t = 0;
+ t = 0,
+  summaryItemArr = [];
 
 const checkCartQty = () => {
     let itemQtyNo = tableBody.childElementCount;
@@ -253,6 +259,16 @@ const newItemRow = (productName, productPrice) => {
             totalPrice.innerText = t;
     checkCartQty();
 }
+const createItemRow = (summarySn, summaryName, summaryQty) => {
+    let newRow = `
+    <tr>
+        <td>${summarySn}</td>
+        <td>${summaryName}</td>
+        <td>${summaryQty}</td>
+    </tr>
+    `;
+    summaryTableBody.innerHTML += newRow;
+}
 const cartShow = () => {
     cartContainer.style.display = 'flex';
     // cartBox.classList.add('cart-container-show')
@@ -268,6 +284,83 @@ const cartBlurClose = (e) => {
     let isBtnInside = cartShowBtn.contains(e.target);
     if (!isInside && !isBtnInside) {
         cartContainer.style.display = 'none';
+        // console.log('working--');
+    }
+    // console.log('!!working');
+    // cartBox.classList.add('cart-container-show')
+    // cartBox.classList.replace('cart-container-show')
+}
+const tableClear = (table) => {
+    // while (table.childElementCount !== 0) {
+        
+    // }
+    while (table.firstChild) {
+        table.removeChild(table.firstChild)
+    }
+    checkCartQty();
+    // console.log('!!working');
+    // cartBox.classList.add('cart-container-show')
+    // cartBox.classList.replace('cart-container-show')
+}
+const summaryItem = () => {
+    let tableRows = tableBody.querySelectorAll('tr');
+    tableRows.forEach(tableRow => {
+        let tableProductSn = tableRow.querySelector('.s-no').innerText,
+        tableProductName = tableRow.querySelector('.cart-product-name').innerText,
+        tableProductQty = tableRow.querySelector('.qty-no').innerText;
+        let summaryItemObj = {
+            objSn: tableProductSn,
+             objName: tableProductName,
+            objQty: tableProductQty,
+        }
+        summaryItemArr.push(summaryItemObj);
+    });
+    summaryItemArr.forEach(item => {
+        let itemSn = item.objSn,
+        itemName = item.objName,
+         itemQty = item.objQty;
+        
+         createItemRow(itemSn, itemName, itemQty);
+    });
+    console.log(summaryItemArr);
+    // cartContainer.style.display = 'flex';
+    // cartBox.classList.add('cart-container-show')
+    // customerName.innerText = name.input;
+    console.log('summary working');
+}
+const summaryShow = () => {
+    summaryItem();
+    customerName.innerText = name.value;
+    successContainer.style.display = 'flex';
+    // cartBox.classList.add('cart-container-show')
+    console.log('working');
+}
+
+const summaryClose = () => {
+    successContainer.style.display = 'none';
+        summaryItemArr = [];
+        console.log('working--');
+        tableClear(summaryTableBody);
+        // tableClear(tableBody);
+        cartBtns.forEach(btn => {
+                if (btn.classList.contains('btn-secondary')) {
+                //     btn.classList.replace('btn-primary', 'btn-secondary');
+                //     btn.textContent = 'REMOVE FROM CART';
+                //     // console.log('ayhh');
+                //     newItemRow(productName, productPrice);
+                // } else {
+                    // btn.classList.replace('btn-secondary', 'btn-primary');
+                    // btn.textContent = 'ADD TO CART';
+                    checkCartItem(btn);
+                    // console.log('nnayhh');
+                }
+        });
+}
+const summaryBlurClose = (e) => {
+    let isInside = successBox.contains(e.target);
+    // let isBtnInside = cartShowBtn.contains(e.target);
+    if (!isInside) {
+        successContainer.style.display = 'none';
         // console.log('working--');
     }
     // console.log('!!working');
@@ -390,6 +483,7 @@ cartBtns.forEach(btn => {
 });
 
 cartShowBtn.addEventListener('click', cartShow);
+okBtn.addEventListener('click', summaryClose);
 
 continueBtn.addEventListener('click', () => {
     cartContainer.style.display = 'none';
@@ -400,6 +494,7 @@ payBtn.addEventListener('click', () => {
     if (tableBody.childElementCount === 0) {
         console.log('no item');
     } else {        
+        // summaryItem();
         formInputs.forEach(formInput => {
             if (formInput.value === '') {
                 showError(formInput, `${formInput.title} cannot be blank`);
@@ -417,6 +512,8 @@ payBtn.addEventListener('click', () => {
     console.log(checkEmail);
     if (checkName && checkEmail && checkNumber) {
         console.log('woohoo');
+        cartClose();
+        summaryShow();
         // payWithPaystack();
     }
     // let checkEmail = email.classList.contains('success');
