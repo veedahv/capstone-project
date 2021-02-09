@@ -6,6 +6,7 @@ successContainer = document.querySelector('.success'),
     gridBox = document.querySelector('.grid'),
     tableBody = document.querySelector('.cart-tbody'),
     summaryTableBody = document.querySelector('.summary-tbody'),
+    msgRef = document.querySelector('.msg-ref'),
     totalPrice = document.querySelector('.total-price'),
     cartShowBtn = document.querySelector('.nav-btn'),
     payBtn = document.querySelector('.pay-btn'),
@@ -328,8 +329,9 @@ const summaryItem = () => {
     // customerName.innerText = name.input;
     console.log('summary working');
 }
-const summaryShow = () => {
+const summaryShow = (message) => {
     summaryItem();
+    msgRef.innerText = message;
     customerName.innerText = name.value;
     successContainer.style.display = 'flex';
     // cartBox.classList.add('cart-container-show')
@@ -566,7 +568,7 @@ function payWithPaystack() {
         callback: function (response) {
             let message = 'Payment complete! Reference: ' + response.reference;
             // alert(message);
-            showSummary();
+            showSummary(message);
         }
     });
     handler.openIframe();
