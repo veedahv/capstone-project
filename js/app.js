@@ -125,19 +125,13 @@ const newItemRow = (productName, productPrice) => {
         subBtns = tableBody.querySelectorAll('.sub-btn'),
         removeBtns = tableBody.querySelectorAll('.remove-btn');
     addBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            getQty(btn, productPrice, 'sub', 10);
-        });
+        btn.addEventListener('click', () => {getQty(btn, productPrice, 'sub', 10);});
     });
     subBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            getQty(btn, productPrice, 'add', 1);
-        });
+        btn.addEventListener('click', () => {getQty(btn, productPrice, 'add', 1);});
     });
     removeBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            checkShopItem(btn);
-        });
+        btn.addEventListener('click', () => {checkShopItem(btn);});
     });
     t += parseInt(productPrice);
     totalPrice.innerText = t;
@@ -211,12 +205,6 @@ const summaryClose = () => {
         }
     });
 }
-const summaryBlurClose = (e) => {
-    let isInside = successBox.contains(e.target);
-    if (!isInside) {
-        summaryClose();
-    }
-}
 
 // Show error message
 const showError = (input, message) => {
@@ -250,8 +238,7 @@ cartBtns.forEach(btn => {
         let productName = btn.closest('.card').querySelector('.product-name').textContent;
         let productPrice = btn.closest('.card').querySelector('.price-value').textContent;
         if (btn.classList.contains('btn-primary')) {
-            btn.classList.replace('btn-primary', 'btn-secondary');
-            btn.textContent = 'REMOVE FROM CART';
+            addToCart(btn);
             newItemRow(productName, productPrice);
         } else {
             checkCartItem(btn);
@@ -262,9 +249,7 @@ cartBtns.forEach(btn => {
 cartShowBtn.addEventListener('click', cartShow);
 okBtn.addEventListener('click', summaryClose);
 
-continueBtn.addEventListener('click', () => {
-    cartContainer.style.display = 'none';
-});
+continueBtn.addEventListener('click', () => {cartContainer.style.display = 'none';});
 payBtn.addEventListener('click', () => {
     if (tableBody.childElementCount === 0) {
         console.log('no item');
@@ -282,16 +267,12 @@ payBtn.addEventListener('click', () => {
         let checkEmail = !email.classList.contains('error');
         let checkNumber = !phoneNumber.classList.contains('error');
         if (checkName && checkEmail && checkNumber) {
-            console.log('woohoo');
             cartClose();
             payWithPaystack();
         }
     }
 });
-document.addEventListener('click', (e) => {
-    cartBlurClose(e);
-    summaryBlurClose(e);
-});
+document.addEventListener('click', (e) => {cartBlurClose(e);});
 
 checkCartQty();
 
