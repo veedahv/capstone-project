@@ -79,6 +79,7 @@ ul {
     font-weight: 500;
     font-size: 20px;
 } */
+button:hover,
 .btn:hover {
     cursor: pointer;
     /* background-color: #000000; */
@@ -196,9 +197,18 @@ ul {
     text-align: left;
     width: 100%;
 }
-th,
-td {
+th {
+    padding-right: 100px;
+}
+.table th:first-of-type {
+    padding-right: 20px;
+}
+.table th:nth-of-type(4),
+.table th:nth-of-type(3) {
     padding-right: 40px;
+}
+.table th:nth-of-type(4) {
+    /* padding-right: 60px; */
 }
 .form {
     max-width: 500px;
@@ -361,7 +371,7 @@ td {
     th,
     td {
         /* padding-right: 30px; */
-        padding-right: 40px;
+        /* padding-right: 40px; */
     }
     .total-amount-txt {
         font-size: 20px;

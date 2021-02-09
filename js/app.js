@@ -513,8 +513,8 @@ payBtn.addEventListener('click', () => {
     if (checkName && checkEmail && checkNumber) {
         console.log('woohoo');
         cartClose();
-        summaryShow();
-        // payWithPaystack();
+        // summaryShow();
+        payWithPaystack();
     }
     // let checkEmail = email.classList.contains('success');
     // (name.value === '') {
@@ -565,7 +565,8 @@ function payWithPaystack() {
         },
         callback: function (response) {
             let message = 'Payment complete! Reference: ' + response.reference;
-            alert(message);
+            // alert(message);
+            showSummary();
         }
     });
     handler.openIframe();
