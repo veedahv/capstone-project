@@ -16,6 +16,7 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Noto Sans TC', sans-serif;
+    scroll-behavior: smooth;
 }
 
 
@@ -92,8 +93,8 @@ button:hover,
 .btn-container .btn-primary {
     color: var(--white);
 }
+.cart,
 .success {
-    text-align: center;
     background: rgba(0, 0, 0, .2);
     padding: 20px;
     width: 100%;
@@ -106,11 +107,32 @@ button:hover,
     display: none;
     z-index: 5;
 }
+.success {
+    text-align: center;
+}
+.cart-container,
 .success-container {
     background: var(--white);
     max-width: 700px;
-    padding: 25px 15px;
     overflow: hidden;
+}
+.checkbox {
+    display: none;
+}
+.cart-body-container {
+    opacity: 0;
+    max-width: 0;
+    max-height: 0;
+    transition: all ease-in-out .1s;
+}
+.checkbox:checked ~ .cart-body-container {
+    opacity: 1;
+    max-width: 700px;
+    max-height: 100vh;
+    transform: scale(100%);
+}
+.success-container {
+    padding: 25px 15px;
 }
 .success-msg {
     font-size: 25px;
@@ -130,25 +152,8 @@ button:hover,
 .ok-btn {
     padding: 5px 45px;
 }
-.cart {
-    background: rgba(0, 0, 0, .2);
-    padding: 20px;
-    width: 100%;
-    height: 100vh;
-    justify-content: center;
-    align-items: center;
-    position: fixed;
-    top: 0;
-    left: 0;
-    display: none;
-    z-index: 5;
-}
 .cart-container {
-    background: var(--white);
-    max-width: 700px;
     padding: 20px 10px;
-    height: fit-content;
-    overflow: hidden;
 }
 .cart-container-btn {
     width: 180px;
@@ -156,11 +161,11 @@ button:hover,
 .table-container {
     width: 100%;
     overflow-x: scroll;
-    scrollbar-color: var(--white);
 }
 .table {
     text-align: left;
     width: 100%;
+    border-collapse: collapse;
 }
 .form {
     max-width: 500px;

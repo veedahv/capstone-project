@@ -13,6 +13,7 @@ const cartContainer = document.querySelector('.cart'),
     okBtn = document.querySelector('.ok-btn'),
     continueBtn = document.querySelector('.continue-btn'),
     customerName = document.querySelector('.customer-name'),
+    checkboxInput = document.querySelector('#checkbox'),
     name = document.querySelector('#name'),
     email = document.querySelector('#email'),
     phoneNumber = document.querySelector('#phone-number'),
@@ -149,16 +150,22 @@ const createItemRow = (summarySn, summaryName, summaryQty) => {
 }
 const cartShow = () => {
     cartContainer.style.display = 'flex';
+    setTimeout(() => {        
+        checkboxInput.checked = true;
+    }, 50);
 }
 
 const cartClose = () => {
-    cartContainer.style.display = 'none';
+    setTimeout(() => {        
+        cartContainer.style.display = 'none';
+    }, 200);
+    checkboxInput.checked = false;
 }
 const cartBlurClose = (e) => {
     let isInside = cartBox.contains(e.target);
     let isBtnInside = cartShowBtn.contains(e.target);
     if (!isInside && !isBtnInside) {
-        cartContainer.style.display = 'none';
+        cartClose();
     }
 }
 const tableClear = (table) => {
