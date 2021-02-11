@@ -256,7 +256,7 @@ cartBtns.forEach(btn => {
 cartShowBtn.addEventListener('click', cartShow);
 okBtn.addEventListener('click', summaryClose);
 
-continueBtn.addEventListener('click', () => {cartContainer.style.display = 'none';});
+continueBtn.addEventListener('click', cartClose);
 payBtn.addEventListener('click', () => {
     if (tableBody.childElementCount === 0) {
         console.log('no item');

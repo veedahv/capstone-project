@@ -162,6 +162,9 @@ button:hover,
     width: 100%;
     overflow-x: scroll;
 }
+.table-container::-webkit-scrollbar {
+    display: none;
+}
 .table {
     text-align: left;
     width: 100%;
