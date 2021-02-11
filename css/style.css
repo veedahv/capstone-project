@@ -93,6 +93,22 @@ button:hover,
 .btn-container .btn-primary {
     color: var(--white);
 }
+.to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: var(--primary);
+    z-index: 4;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.to-top-link {
+    color: var(--white);
+}
 .cart,
 .success {
     background: rgba(0, 0, 0, .2);
