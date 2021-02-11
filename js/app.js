@@ -26,15 +26,17 @@ let sN,
     t = 0,
     summaryItemArr = [];
 
+// Check number of items in cart
 const checkCartQty = () => {
     let itemQtyNo = tableBody.childElementCount;
     cartQty.textContent = itemQtyNo;
 }
-
+// Add items to cart
 const addToCart = (btn) => {
     btn.classList.replace('btn-primary', 'btn-secondary');
     btn.textContent = 'REMOVE FROM CART';
 }
+// Remove items from cart
 const removeToCart = (btn) => {
     btn.classList.replace('btn-secondary', 'btn-primary');
     btn.textContent = 'ADD TO CART';
@@ -87,6 +89,7 @@ const checkShopItem = (btn) => {
         }
     }
 }
+// Increase / decrease quantity of items in cart
 const getQty = (btn, productPrice, op, minMaxValue) => {
     let qtyOfItem = btn.closest('tr').querySelector('.qty-no');
     let opSiblingBtn = btn.closest('tr').querySelector(`.${op}-btn`);
@@ -106,7 +109,7 @@ const getQty = (btn, productPrice, op, minMaxValue) => {
         (qtyOfItemNo >= minMaxValue) ? opSiblingBtn.disabled = false : opSiblingBtn.disabled = true;
     }
 }
-
+// Create new cart table row
 const newItemRow = (productName, productPrice) => {
     sN = tableBody.childElementCount;
     sN++;
@@ -140,6 +143,7 @@ const newItemRow = (productName, productPrice) => {
     totalPrice.innerText = t;
     checkCartQty();
 }
+// Create new summary table row
 const createItemRow = (summarySn, summaryName, summaryQty) => {
     let newRow = `
     <tr>
@@ -156,7 +160,6 @@ const cartShow = () => {
         checkboxInput.checked = true;
     }, 50);
 }
-
 const cartClose = () => {
     setTimeout(() => {        
         cartContainer.style.display = 'none';
@@ -193,7 +196,6 @@ const summaryItem = () => {
         let itemSn = item.objSn,
             itemName = item.objName,
             itemQty = item.objQty;
-
         createItemRow(itemSn, itemName, itemQty);
     });
 }
@@ -203,7 +205,6 @@ const summaryShow = (message) => {
     customerName.innerText = name.value;
     successContainer.style.display = 'flex';
 }
-
 const summaryClose = () => {
     successContainer.style.display = 'none';
     summaryItemArr = [];
@@ -214,14 +215,12 @@ const summaryClose = () => {
         }
     });
 }
-
 // Show error message
 const showError = (input, message) => {
     input.classList.add('error');
     const errorTxt = input.nextElementSibling;
     errorTxt.innerText = message;
 };
-
 const validateEmail = () => {
     const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     let emailValidTest = re.test(String(email.value).toLowerCase());
@@ -250,6 +249,7 @@ const isInViewport = (element) => {
     ) ? toTop.style.display = 'none' : toTop.style.display = 'flex';
 }
 
+// Event Listeners
 cartBtns.forEach(btn => {
     btn.addEventListener('click', () => {
         let productName = btn.closest('.card').querySelector('.product-name').textContent;
@@ -262,21 +262,15 @@ cartBtns.forEach(btn => {
         }
     });
 });
-
 cartShowBtn.addEventListener('click', cartShow);
 okBtn.addEventListener('click', summaryClose);
-
 continueBtn.addEventListener('click', cartClose);
 payBtn.addEventListener('click', () => {
     if (tableBody.childElementCount === 0) {
         console.log('no item');
     } else {
         formInputs.forEach(formInput => {
-            if (formInput.value === '') {
-                showError(formInput, `${formInput.title} cannot be blank`);
-            } else {
-                formInput.classList.remove('error');
-            }
+            (formInput.value === '') ? showError(formInput, `${formInput.title} cannot be blank`) : formInput.classList.remove('error');
         });
         validatePhoneNumber();
         validateEmail();
@@ -292,6 +286,7 @@ payBtn.addEventListener('click', () => {
 document.addEventListener('click', (e) => {cartBlurClose(e);});
 document.addEventListener('scroll', () => {isInViewport(header);});
 
+// On load
 checkCartQty();
 isInViewport(header);
 
