@@ -1,6 +1,7 @@
 const cartContainer = document.querySelector('.cart'),
     cartBox = document.querySelector('.cart-container'),
     cartQty = document.querySelector('.item-qty-no'),
+    toTop = document.querySelector('.to-top'),
     successContainer = document.querySelector('.success'),
     successBox = document.querySelector('.success-container'),
     gridBox = document.querySelector('.grid'),
@@ -14,6 +15,7 @@ const cartContainer = document.querySelector('.cart'),
     continueBtn = document.querySelector('.continue-btn'),
     customerName = document.querySelector('.customer-name'),
     checkboxInput = document.querySelector('#checkbox'),
+    header = document.querySelector('#header'),
     name = document.querySelector('#name'),
     email = document.querySelector('#email'),
     phoneNumber = document.querySelector('#phone-number'),
@@ -229,7 +231,6 @@ const validateEmail = () => {
         showError(email, 'Email invalid');
     }
 }
-
 const validatePhoneNumber = () => {
     const re = /^[0]\d{10}$/;
     let phoneNumberValidTest = re.test(String(phoneNumber.value));
@@ -238,6 +239,15 @@ const validatePhoneNumber = () => {
     } else {
         showError(phoneNumber, 'Phone number invalid');
     }
+}
+const isInViewport = (element) => {
+    const rect = element.getBoundingClientRect();
+    (
+        rect.top >= 0 &&
+        rect.left >= 0 &&
+        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+        rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+    ) ? toTop.style.display = 'none' : toTop.style.display = 'flex';
 }
 
 cartBtns.forEach(btn => {
@@ -280,8 +290,10 @@ payBtn.addEventListener('click', () => {
     }
 });
 document.addEventListener('click', (e) => {cartBlurClose(e);});
+document.addEventListener('scroll', () => {isInViewport(header);});
 
 checkCartQty();
+isInViewport(header);
 
 function payWithPaystack() {
     let totalPriceNo = parseInt(totalPrice.innerText);
