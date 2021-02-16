@@ -90,9 +90,10 @@ const checkShopItem = (btn) => {
     }
 }
 // Increase / decrease quantity of items in cart
-const getQty = (btn, productPrice, op, minMaxValue) => {
+const getQty = (btn, op, minMaxValue) => {
     let qtyOfItem = btn.closest('tr').querySelector('.qty-no');
     let opSiblingBtn = btn.closest('tr').querySelector(`.${op}-btn`);
+    let productPrice = btn.closest('tr').querySelector('.price').innerText;
     let qtyOfItemNo = qtyOfItem.textContent;
     let qtyOfItemPrice = parseInt(productPrice) * qtyOfItemNo;
     t -= qtyOfItemPrice;
@@ -131,10 +132,10 @@ const newItemRow = (productName, productPrice) => {
         subBtns = tableBody.querySelectorAll('.sub-btn'),
         removeBtns = tableBody.querySelectorAll('.remove-btn');
     addBtns.forEach(btn => {
-        btn.addEventListener('click', () => {getQty(btn, productPrice, 'sub', 10);});
+        btn.addEventListener('click', () => {getQty(btn, 'sub', 10);});
     });
     subBtns.forEach(btn => {
-        btn.addEventListener('click', () => {getQty(btn, productPrice, 'add', 1);});
+        btn.addEventListener('click', () => {getQty(btn, 'add', 1);});
     });
     removeBtns.forEach(btn => {
         btn.addEventListener('click', () => {checkShopItem(btn);});
