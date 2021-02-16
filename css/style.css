@@ -121,6 +121,7 @@ button:hover,
 }
 .cart-img {
     width: 30px;
+    margin-right: 10px;
 }
 
 /* back to top styling */
@@ -224,6 +225,10 @@ td {
 }
 .item-th {
     min-width: 140px;
+}
+.price-th,
+.qty-th {
+    min-width: 100px;
 }
 .table .btn {
     font-size: 14px;

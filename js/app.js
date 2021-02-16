@@ -119,7 +119,7 @@ const newItemRow = (productName, productPrice) => {
         <td class="cart-product-name">${productName}</td>
         <td>&#8358;<span class="price">${productPrice}</span></td>
         <td class="cart-flex">
-            <button class="btn-qty sub-btn btn-primary">-</button>
+            <button class="btn-qty sub-btn btn-primary" disabled>-</button>
             <span class="qty-no">1</span>
             <button class="btn-qty add-btn btn-primary">+</button>
         </td>
@@ -169,7 +169,7 @@ const cartClose = () => {
 const cartBlurClose = (e) => {
     let isInside = cartBox.contains(e.target);
     let isBtnInside = cartShowBtn.contains(e.target);
-    if (!isInside && !isBtnInside) {
+    if (!isInside && !isBtnInside && e.target.innerText !== 'Remove') {
         cartClose();
     }
 }
