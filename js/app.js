@@ -205,6 +205,9 @@ const summaryShow = (message) => {
     msgRef.innerText = message;
     customerName.innerText = name.value;
     successContainer.style.display = 'flex';
+    name.value = '';
+    email.value = '';
+    phoneNumber.value = '';
 }
 const summaryClose = () => {
     successContainer.style.display = 'none';
